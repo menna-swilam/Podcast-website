@@ -9,9 +9,7 @@ const podcastsController = require('./controllers/podcast');
 
 app.get('/api/podcasts/', podcastsController.getAllPodcasts);
 app.get('/api/podcasts/:name', podcastsController.getPodcastByName);
-app.get('/api/podcasts/:name/id', podcastsController.getPodcastId);
 app.get('/api/podcasts/:name/category', podcastsController.getPodcastCategory);
-app.get('/api/podcasts/:name/season', podcastsController.getPodcastSeason);
 app.post('/api/podcasts', podcastsController.addPodcast);
 app.put('/api/podcasts/:id', podcastsController.editPodcast);
 app.delete('/api/podcasts/:id', podcastsController.deletePodcast);
