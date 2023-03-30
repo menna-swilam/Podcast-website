@@ -6,15 +6,7 @@ const getAllPodcasts = (req, res) => {
     res.send(podcasts);
 };
 
-const getPodcastId = (req, res) => {
 
-    const podcast = podcasts.find(c => c.name === (req.params.name));
-    if (!podcast) {
-        res.status(404).send('The podcast with the given ID not found !');
-    } else {
-        res.send(podcast.id);
-    }
-};
 
 const getPodcastByName = (req, res) => {
 
@@ -34,15 +26,7 @@ const getPodcastCategory = (req, res) => {
         res.send(podcast.category);
     }
 };
-const getPodcastSeason = (req, res) => {
 
-    const podcast = podcasts.find(c => c.name === (req.params.name));
-    if (!podcast) {
-        res.status(404).send('The podcast with the given season number not found !');
-    } else {
-        res.send(podcast.params.season);
-    }
-};
 
 const addPodcast = (req, res) => {
     //    if(!req.body.name || req.body.name.length<3){
@@ -107,12 +91,10 @@ const deletePodcast = (req, res) => {
 
 module.exports = {
     getAllPodcasts,
-    getPodcastId,
     addPodcast,
     editPodcast,
     deletePodcast,
     getPodcastByName,
     getPodcastCategory,
-    getPodcastSeason,
 
 };
