@@ -3,6 +3,7 @@ const categoryRouter = Router()
 
 const categoryController = require('../controllers/category_controller');
 
+
 categoryRouter.get('/', categoryController.getAllcategories);
 categoryRouter.get('/:name', categoryController.getcategoryByName);
 categoryRouter.post('/', categoryController.addcategory);
