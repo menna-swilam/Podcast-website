@@ -2,91 +2,95 @@ const { podcasts } = require('../models/podcasts');
 const Joi = require('joi');
 const { validatepodcast } = require('../helper/validation');
 
-const getAllPodcasts = (req, res) => {
-    res.send(podcasts);
-};
+const getAllPodcasts = async (req, res) => {
+    try {
+        const allPodcasts = await podcasts.find({});
+        res.status(200).send(allPodcasts);
+    } catch (error) {
+        res.status(400).send(error);
+    }};
 
+    const getAllPodcastsbyCat = async (req, res) => {
+        try {
+            const allPodcasts = await podcasts.find({category: req.params.category});
+            res.status(200).send(allPodcasts);
+        } catch (error) {
+            res.status(400).send(error);
+        }};
 
+const getPodcastByName = async (req, res) => {
 
-const getPodcastByName = (req, res) => {
-
-    const podcast = podcasts.find(c => c.name === (req.params.name));
-    if (!podcast) {
-        res.status(404).send('The podcast with the given Name not found !');
-    } else {
-        res.send(podcast);
+    try {
+        //findByName
+        const allPodcasts = await podcasts.findOne({ name: req.params.name});
+        res.status(200).send(allPodcasts);
+    } catch (error) {
+        res.status(400).send(error);
     }
 };
-const getPodcastCategory = (req, res) => {
+const getPodcastCategory = async (req, res) => {
 
-    const podcast = podcasts.find(c => c.name === (req.params.name));
-    if (!podcast) {
-        res.status(404).send('The podcast with the given category not found !');
-    } else {
-        res.send(podcast.category);
+    try {
+        const allPodcasts = await podcasts.findOne({ _id: req.params.id });
+        res.status(200).send(allPodcasts.category);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+};
+const getPodcasterName = async (req, res) => {
+
+    try {
+        const allPodcasts = await podcasts.findOne({ _id: req.params.id });
+        res.status(200).send(allPodcasts.podcaster);
+    } catch (error) {
+        res.status(400).send(error);
     }
 };
 
 
-const addPodcast = (req, res) => {
-    //    if(!req.body.name || req.body.name.length<3){
-    //        res.status(400).send('Name is required and must be more than 3 characters');
-    //    }
 
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-        category: Joi.string().min(3).required(),
-        season: Joi.number().required(),
-        episode: Joi.number().required()
-
-
-    });
-    const result = schema.validate(req.body);
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
-        console.log(result);
-        return;
+const addPodcast = async (req, res) => {
+    try {
+        const podcast = await podcasts.create(req.body);
+        res.status(201).send(podcast);
+    } catch (error) {
+        res.status(400).send(error);
     }
-
-    const podcast = {
-        id: podcasts.length + 1,
-        name: req.body.name,
-        category:  req.body.category,
-        season: req.body.season,
-        episode: req.body.episode
-    };
-    podcasts.push(podcast);
-    res.send(podcast);
+   
 };
 
-const editPodcast = (req, res) => {
-    const podcast = podcasts.find(c => c.id === parseInt(req.params.id));
-    if (!podcast)
-        res.status(404).send('The podcast with the given ID not found !');
-
-    const result = validatepodcast(req.body);
-
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
-        console.log(result);
-        return;
+const editPodcast = async (req, res) => {
+    const userId = req.params.id;
+    try {
+        // const course = await Course.findByIdAndUpdate({ _id: userId }, req.body);
+        const podcast = await podcasts.findOne({ _id: userId });
+        if (req.body.name) {
+            podcast.name = req.body.name;
+        }
+        if (req.body.category) {
+            podcast.category = req.body.category;
+        }
+        if (req.body.season) {
+            podcast.season = req.body.season;
+        }
+        if (req.body.episode) {
+            podcast.episode = req.body.episode;
+        }
+        await podcast.save();
+        res.status(200).send(podcast);
+    } catch (error) {
+        res.status(400).send(error);
     }
-
-    podcast.name = req.body.name;
-    res.send(podcast);
-
 };
 
 
-const deletePodcast = (req, res) => {
-    const podcast = podcasts.find(c => c.id === parseInt(req.params.id));
-    if (!podcast)
-        res.status(404).send('The podcast with the given ID not found !');
-
-    const index = podcasts.indexOf(podcast);
-    podcasts.splice(index, 1);
-
-    res.send(podcast);
+const deletePodcast = async (req, res) => {
+    try {
+        const podcast = await podcasts.deleteOne({ _id: req.params.id });
+        res.status(200).send(podcast);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 };
 
 module.exports = {
@@ -96,5 +100,7 @@ module.exports = {
     deletePodcast,
     getPodcastByName,
     getPodcastCategory,
+    getAllPodcastsbyCat,
+    getPodcasterName,
 
 };
