@@ -1,9 +1,14 @@
-const categories = [
-    { id: 1, name: "social"  },
-    { id: 0, name: "economics" },
-    { id: 6, name: "story"  }
-    
-];
+const mongoose = require('mongoose');
+const categorySchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true,
+    },
+
+
+});
+
+const categories = mongoose.model('categories',categorySchema);
 
 module.exports = {
     categories,
