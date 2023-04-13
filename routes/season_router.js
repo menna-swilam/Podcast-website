@@ -14,5 +14,5 @@ seasonRouter.get('/:episode', seasonController.getseasonByEpisode);
  
 
 module.exports = {
-    podcastRouter
+    seasonRouter
 };
