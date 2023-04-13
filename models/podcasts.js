@@ -1,10 +1,36 @@
-const podcasts = [
-    { id: 1, name: "Startalk" , category : "science" , season : 3 ,  episode: 240  },
-    { id: 2, name: "The Magnus Archives" , category : "horror" , season : 4 ,  episode:  234 },
-    { id: 3, name: "Philosophize this!" , category : "philosophy" , season : 2 ,  episode:  100}
-    
-];
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
+
+const podcastsScheme = Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+   category: {
+    type: Schema.Types.ObjectId,
+        ref: 'categories',
+   },
+   season: {
+    type: Number,
+        required: true,
+   },
+   episode: {
+    type: Number,
+        required: true,
+   }, 
+   podcaster:{
+    type: String,
+    required: true,
+   }
+
+});
+
+const podcasts = model('podcasts', podcastsScheme);
 
 module.exports = {
     podcasts,
 };
+
+
+
