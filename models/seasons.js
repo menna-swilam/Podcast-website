@@ -1,10 +1,24 @@
-const seasons = [
-    { id: 1, name: "akkl" , episode: "jbjk" },
-    { id: 2, name: "akkl" , episode: "jbhjb" },
-    { id: 3, name: "jljnl" , episode: "kgjb" }
-    
-];
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
+
+const seasonsScheme = Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+   episode: {
+        type: Number,
+        required: true,
+   },
+
+});
+
+const seasons = model('seasons', seasonsScheme);
 
 module.exports = {
     seasons,
 };
+
+
+
