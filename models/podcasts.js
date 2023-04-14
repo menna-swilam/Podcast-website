@@ -20,8 +20,8 @@ const podcastsScheme = Schema({
         required: true,
    }, 
    podcaster:{
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'podcaster',
    }
 
 });
