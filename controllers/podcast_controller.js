@@ -1,4 +1,5 @@
 const { podcasts } = require('../models/podcasts');
+const { Podcaster } = require('../models/podcaster');
 const Joi = require('joi');
 const { validatepodcast } = require('../helper/validation');
 
@@ -40,8 +41,8 @@ const getPodcastCategory = async (req, res) => {
 const getPodcasterName = async (req, res) => {
 
     try {
-        const allPodcasts = await podcasts.findOne({ _id: req.params.id });
-        res.status(200).send(allPodcasts.podcaster);
+       const allPodcasts = await Podcaster.findOne({ _id: req.params.id });
+        res.status(200).send(allPodcasts.name);
     } catch (error) {
         res.status(400).send(error);
     }
