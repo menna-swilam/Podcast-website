@@ -21,7 +21,16 @@ const getPodcasterByName = async (req, res) => {
     }
 };
 
- 
+const getPodcasterById = async (req, res) => {
+   
+    try {
+        //findByid
+        const allPodcasters = await Podcaster.findOne({ _id: req.params.id});
+        res.status(200).send(allPodcasters);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+};
 const addPodcaster = async (req, res) => {
     try {
         const podcaster = await Podcaster.create(req.body);
@@ -67,4 +76,6 @@ module.exports = {
     addPodcaster,
     editPodcaster,
     deletePodcaster,
+    getPodcasterById,
 };
+ 
