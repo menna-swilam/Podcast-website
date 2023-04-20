@@ -5,6 +5,7 @@ const podcasterController = require('../controllers/podcaster_controller');
 
 
 podcasterRouter.get('/', podcasterController.getAllPodcasters);
+podcasterRouter.get('/sort', podcasterController.getAllPodcastersSorted);
 podcasterRouter.get('/:id', podcasterController.getPodcasterById);
 podcasterRouter.get('/name/:name', podcasterController.getPodcasterByName);
 podcasterRouter.post('/', podcasterController.addPodcaster);
@@ -14,3 +15,4 @@ podcasterRouter.delete('/:id', podcasterController.deletePodcaster);
 module.exports = {
     podcasterRouter
 };
+
