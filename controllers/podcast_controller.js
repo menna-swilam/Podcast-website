@@ -62,6 +62,17 @@ const getPodcasterName = async (req, res) => {
     }
 };
 
+const getNumberofSeasonsByPodcast = async (req, res) => {
+
+    try {
+        const allPodcasts = await seasons.find({ podcast: req.params.id });
+       const podcasts = allPodcasts.map((season) => season.name);
+        res.status(200).send(podcasts);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+};
+
 
 
 
@@ -118,5 +129,6 @@ module.exports = {
     getPodcastCategory,
     getAllPodcastsbyCat,
     getPodcasterName,
-getPodcastByNameandSuggest,
+    getPodcastByNameandSuggest,
+    getNumberofSeasonsByPodcast,
 };
