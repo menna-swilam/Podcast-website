@@ -1,16 +1,16 @@
 const { Router } = require('express');
 const seasonRouter = Router()
 
-const seasonController = require('../controllers/season');
+const seasonController = require('../controllers/season_controller');
 
 
-seasonRouter.get('/', seasonController.getAllseasons);
-seasonRouter.post('/', seasonController.addseason);
-seasonRouter.put('/:id', seasonController.editseason);
-seasonRouter.delete('/:id', seasonController.deleteseason);
-seasonRouter.get('/:id', seasonController.getseasonById);
-seasonRouter.get('/:episode', seasonController.getseasonByEpisode);
- 
+seasonRouter.get('/', seasonController.getAllSeasons);
+seasonRouter.get('/:name', seasonController.getSeasonByName);
+seasonRouter.get('/ep/:episode', seasonController.getSeasonByEpisode);
+seasonRouter.post('/', seasonController.addSeason);
+seasonRouter.put('/:id', seasonController.editSeason);
+seasonRouter.delete('/:id', seasonController.deleteSeason);
+
  
 
 module.exports = {
