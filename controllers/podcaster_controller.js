@@ -10,6 +10,16 @@ const getAllPodcasters = async (req, res) => {
         res.status(400).send(error);
     }
 };
+const getAllPodcastersSorted = async (req, res) => {
+    try {
+
+        const allPodcasters = await Podcaster.find({});
+        allPodcasters.sort((a, b) => b.Rating - a.Rating);
+        res.status(200).send(allPodcasters);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+};
 const getPodcasterByName = async (req, res) => {
    
     try {
@@ -44,12 +54,13 @@ const editPodcaster = async (req, res) => {
     const userId = req.params.id;
     try {
         const podcaster = await Podcaster.findOne({ _id: userId });
-        if (req.body.name) {
-            podcaster.name = req.body.name;
+      
+        if (req.body.podcasts == podcaster.podcasts) {
+            if (req.body.name) {
+                podcaster.name = req.body.name;
+            }
         }
-        if (req.body.podcasts) {
-            podcaster.podcasts = req.body.podcasts;
-        }
+      
         if (req.body.Rating) {
             podcaster.Rating = req.body.Rating;
         }
@@ -77,5 +88,6 @@ module.exports = {
     editPodcaster,
     deletePodcaster,
     getPodcasterById,
+    getAllPodcastersSorted,
 };
  
