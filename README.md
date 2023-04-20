@@ -13,7 +13,7 @@ Using mongodb database we built a podcats website API through which you can acce
 9- through ***/api/podcasts/:category/allPodcasts*** and a **get** query you can get all podcasts having the same category.
 10- through ***/api/podcasts/:id/podcaster*** and a **get** query you can find out the name of the podcaster presenting a certain podcast. 
 
-#### For Podcaster
+### For Podcaster
 11- through ***/api/podcaster/*/*** and a **get** query you can get all the podcasters in the databse.
 12- through ***/api/podcaster/sort*** and a **get** query you can get all podcasters sorted by thier ratings.
 13- through ***/api/podcaster/:id*** and a **get** query you can get certain podcaster by id.
