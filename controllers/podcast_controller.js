@@ -1,5 +1,7 @@
 const { podcasts } = require('../models/podcasts');
 const { Podcaster } = require('../models/podcaster');
+const { seasons } = require('../models/seasons');
+
 const Joi = require('joi');
 const { validatepodcast } = require('../helper/validation');
 
@@ -29,6 +31,18 @@ const getPodcastByName = async (req, res) => {
         res.status(400).send(error);
     }
 };
+
+const getPodcastByNameandSuggest = async (req, res) => {
+
+    try {
+        const allPodcasts = await podcasts.findOne({ name: req.params.name});
+       const pod = await podcasts.find({category: allPodcasts.category});
+        res.status(200).send(pod);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+};
+
 const getPodcastCategory = async (req, res) => {
 
     try {
@@ -41,12 +55,13 @@ const getPodcastCategory = async (req, res) => {
 const getPodcasterName = async (req, res) => {
 
     try {
-       const allPodcasts = await Podcaster.findOne({ _id: req.params.id });
+        const allPodcasts = await Podcaster.findOne({ _id: req.params.id });
         res.status(200).send(allPodcasts.name);
     } catch (error) {
         res.status(400).send(error);
     }
 };
+
 
 
 
@@ -103,5 +118,5 @@ module.exports = {
     getPodcastCategory,
     getAllPodcastsbyCat,
     getPodcasterName,
-
+getPodcastByNameandSuggest,
 };
